@@ -1,0 +1,91 @@
+//basic example
+https://codesandbox.io/s/pensive-cdn-044r8?file=/src/App.js:0-418
+import React from "react";
+import "./styles.css";
+// step 1:creating context object
+const {Provider,Consumer}=React.createContext(null);
+
+function Counter(){
+{/* step 3:Consumer */}
+  return <Consumer>{(context)=>{
+   return  <>{context}</>
+  }}</Consumer>
+}
+export default function App() {
+  return (
+    <div className="App">
+      
+      
+      <Provider value="1">
+        <Counter />
+        </Provider>
+    </div>
+  );
+}
+
+//with state values
+import React from "react";
+import "./styles.css";
+// step 1:creating context object
+const {Provider,Consumer}=React.createContext(null);
+
+function Counter(){
+  //step 3:consumer
+  return <Consumer>{(context)=>{
+   return  <>{context.state.count}</>
+  }}</Consumer>
+}
+export default function App() {
+  return (
+    <div className="App">
+      {/* step 2:Provider with state */}
+      <Provider value={{
+        state:{
+        count:1
+      }
+      }}>
+        <Counter />
+        </Provider>
+    </div>
+  );
+}
+
+//with function and event
+import React from "react";
+import "./styles.css";
+// step 1:creating context object
+const {Provider,Consumer}=React.createContext(null);
+
+function Counter(){
+  //step 3:consumer
+  return <Consumer>{(context)=>{
+   return  <>{context.state.count}
+   <button onClick={
+     context.increment
+   }>click me</button>
+   </>
+  }}</Consumer>
+}
+export default class  App extends React.Component {
+  state={
+    count:1
+  }
+  render(){
+    return (
+    <div className="App">
+      {/* step 2:Provider with state */}
+      <Provider value={{
+        state:this.state,
+        increment:()=>{
+          this.setState({count:this.state.count+1})
+        }
+
+      }}>
+        <Counter />
+        </Provider>
+    </div>
+  );
+    }
+}
+
+
