@@ -88,4 +88,44 @@ export default class  App extends React.Component {
     }
 }
 
+//useContext
+import React,{useContext} from "react";
+import "./styles.css";
+// step 1:creating context object
+//const { Provider, Consumer } = React.createContext(null);
+const MyContext=React.createContext();
+function Counter() {
+ let countData=useContext(MyContext);
+  //step 3:consumer
+  return (
+   <>
+    {countData.state.count}
+    <button onClick={countData.increment}>click me</button>
+  </>
+  );
+}
+export default class App extends React.Component {
+  state = {
+    count: 1
+  };
+  render() {
+    return (
+      <div className="App">
+        {/* step 2:Provider with state */}
+        <MyContext.Provider
+          value={{
+            state: this.state,
+            increment: () => {
+              this.setState({ count: this.state.count + 1 });
+            }
+          }}
+        >
+          <Counter />
+        </MyContext.Provider>
+      </div>
+    );
+  }
+}
+
+
 
