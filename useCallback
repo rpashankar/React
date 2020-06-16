@@ -1,0 +1,30 @@
+// import React,{useState} from "react";
+// import "./styles.css";
+
+// export default function App() {
+//   let [count,setCount]=useState(0);
+//   const clickCount=()=>{
+//     setCount(count+1)
+//   }
+//   return (
+//     <div className="App">
+//       <h1>Hello CodeSandbox-{count}</h1>
+//       <button onClick={clickCount}>click me</button>
+//     </div>
+//   );
+// }
+import React,{useState,useCallback} from "react";
+import "./styles.css";
+
+export default function App() {
+  let [count,setCount]=useState(0);
+  const clickCount=useCallback(()=>{
+    setCount(count+1)
+  },[count])
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox-{count}</h1>
+      <button onClick={clickCount}>click me</button>
+    </div>
+  );
+}
