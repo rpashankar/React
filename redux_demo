@@ -1,0 +1,60 @@
+/*
+https://codesandbox.io/s/boring-firefly-xmv02?file=/src/App.js:0-423
+useSelector and useDispatch hooks in redux(instead of mapStateToProps and mapDispatchToProps)
+*/
+//rootReducer.js
+const initialState={
+  count:0
+}
+function rootReducer(state=initialState,action){
+ switch(action.type){
+  case "increment":
+    return {
+      ...state,
+      count:state.count+1
+    }
+    case "decrement":
+    return {
+      ...state,
+      count:state.count-1
+    }
+    
+    default:
+      return state;
+
+}
+}
+export default rootReducer;
+
+//store and main react index
+import React from "react";
+import ReactDOM from "react-dom";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux'
+import App from "./App";
+import RootReducer from './Reducer/rootReducer'
+const store=createStore(RootReducer);
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}><App /></Provider>
+  </React.StrictMode>,
+  rootElement
+);
+//app.js
+import React from "react";
+import {useSelector,useDispatch} from 'react-redux'
+import "./styles.css";
+
+export default function App() {
+  let count=useSelector(state=>
+    state.count
+  );
+  const dispatch=useDispatch();
+  return (
+    <div className="App">customElements
+      <h1>{count}</h1>
+      <h2><button onClick={()=>dispatch({type:'increment'})}>click</button></h2>
+    </div>
+  );
+}
